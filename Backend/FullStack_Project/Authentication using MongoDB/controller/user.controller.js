@@ -215,7 +215,7 @@ const getMe = async (req,res) => {
   try {
     const data = req.user
     console.log("data",data)
-   const user = await User.findById(req.user.id).select('-password')
+   const user = await User.findById(req.user.id).select('password')
      console.log("Reached at profile error")
 
      if(!user){
@@ -225,7 +225,7 @@ const getMe = async (req,res) => {
       })
      }
 
-     res.status(200).json({
+    return  res.status(200).json({
       success:true,
       user,
       message: "user found"
@@ -245,7 +245,7 @@ const getMe = async (req,res) => {
 const logoutUser = async (req,res) => {
   try {
     res.cookie('token', '' , {}) //expires: new Date (0) // immediately make it clear
-      res.status(200).json({
+     return  res.status(200).json({
         success:true,
         message: "Logged out successfully"
        })
@@ -253,7 +253,7 @@ const logoutUser = async (req,res) => {
   } catch(error) {
     return res.status(500).json({
       success: false,
-      message: "Error fetching user profile",})
+      message: "Logged out failed",})
 
   }
 }
